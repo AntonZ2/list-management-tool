@@ -1,6 +1,6 @@
 <%@ page import="java.util.List" %>
 <%@ page import="uk.ac.ucl.lists.Item" %>
-\<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -9,31 +9,13 @@
 <head>
   <jsp:include page="/meta.jsp"/>
   <title>View List Items</title>
-  <style>
-    table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-    th, td {
-      padding: 8px;
-      text-align: left;
-      border-bottom: 1px solid #ddd;
-    }
-    th {
-      background-color: #f2f2f2;
-    }
-    img {
-      max-width: 200px;
-      max-height: 200px;
-    }
-  </style>
 </head>
 <body>
 <jsp:include page="/header.jsp"/>
 <div class="main">
   <h2>Items in <%=request.getAttribute("listName")%>:</h2>
-  <table>
-    <tr>
+  <table class="data-table">
+  <tr>
       <th>Key</th>
       <th>Data</th>
     </tr>
@@ -62,9 +44,10 @@
     <input type="hidden" name="listName" value="<%= request.getParameter("listName") %>" />
     <input type="submit" value="Edit" />
   </form>
+  <jsp:include page="/backButton.jsp">
+    <jsp:param name="previousPage" value="viewListNames.html" />
+  </jsp:include>
 </div>
 <jsp:include page="/footer.jsp"/>
 </body>
 </html>
-
-

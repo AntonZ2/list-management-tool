@@ -1,15 +1,63 @@
-
+<!DOCTYPE html>
 <html>
 <head>
-  <title>Patient Data App</title>
+  <meta charset="UTF-8">
+  <title>Lists Management App</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      text-align: center;
+    }
+
+    .header {
+      background-color: #d55200;
+      padding: 20px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+      border-bottom: 1px solid #6f6f6f;
+    }
+
+    .main {
+      width: 50%;
+      margin: 0 auto;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      flex: 1;
+    }
+
+    .footer {
+      background-color: #d55200;
+      padding: 20px;
+      text-align: center;
+      font-size: 14px;
+      border-top: 1px solid #6f6f6f;
+    }
+  </style>
 </head>
 <body>
+<div class="header">
+  <h1>List App</h1>
+</div>
 <div class="main">
+  <div class="main-menu-button">
+    <a href="/"><button>Main Menu</button></a>
+  </div>
   <h1>Search</h1>
   <form method="POST" action="/runsearch.html">
     <input type="text" name="searchstring" placeholder="Enter search keyword here"/>
     <input type="submit" value="Search"/>
   </form>
+</div>
+<div class="footer">
+  <p>Anton Zhulkovskiy<br>COMP0004 Coursework 2023</p>
 </div>
 </body>
 </html>

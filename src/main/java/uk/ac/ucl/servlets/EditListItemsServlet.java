@@ -21,7 +21,7 @@ public class EditListItemsServlet extends HttpServlet {
         String listName = request.getParameter("listName");
 
         List<Item> items = model.getList(listName).getItems();
-        request.setAttribute("items", items); // Set the items attribute here
+        request.setAttribute("items", items);
 
         ServletContext context = getServletContext();
         RequestDispatcher dispatch = context.getRequestDispatcher("/editListItems.jsp");

@@ -8,8 +8,8 @@ import java.io.IOException;
 class ImageItem extends Item {
 
     public ImageItem(){
-        // default constructor for Jackson
     }
+
     public ImageItem(String key, String imageData) {
         this.key = key;
         this.data = encodeImage(imageData);
@@ -17,7 +17,7 @@ class ImageItem extends Item {
 
     @Override
     public boolean search(String keyword) {
-        return false;
+        return key.toLowerCase().contains(keyword.toLowerCase());
     }
 
     private String encodeImage(String imagePath) {

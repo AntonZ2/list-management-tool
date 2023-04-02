@@ -1,43 +1,48 @@
-<%@ page import="java.util.List" %>
-<%@ page import="java.util.Map" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="java.util.AbstractMap" %>
+<%@ page import="java.util.List" %>
+<%@ page import="uk.ac.ucl.lists.Item" %>
 
 <html>
 <head>
-  <jsp:include page="/meta.jsp"/>
   <title>Search Results</title>
+  <jsp:include page="/meta.jsp"/>
 </head>
 <body>
 <jsp:include page="/header.jsp"/>
-<div class="main">
-  <h1>Search Results</h1>
+<h2>Search Results</h2>
+<table class="data-table">
+  <tr>
+    <th>List Name</th>
+    <th>Key</th>
+    <th>Data</th>
+  </tr>
   <%
-    // data type is confirmed so warning should not be worried about
-    List<Map<String, String>> results = (List<Map<String, String>>) request.getAttribute("result");
-    if (results.size() != 0) {
+    List<AbstractMap.SimpleEntry<String, Item>> results = (List<AbstractMap.SimpleEntry<String, Item>>) request.getAttribute("result");
+    for (AbstractMap.SimpleEntry<String, Item> result : results) {
+      String listName = result.getKey();
+      Item item = result.getValue();
   %>
-  <ul>
-    <%
-      for (Map<String, String> itemData : results) {
-    %>
-    <li>
-      <% if (itemData.containsKey("text")) { %>
-      <p><%= itemData.get("text") %></p>
+  <tr>
+    <td><a href="viewListItems.html?listName=<%=listName%>"><%=listName%></a></td>
+    <td><%=item.getKey()%></td>
+    <td>
+      <% if (item.isImage()) { %>
+      <img src="data:image/png;base64, <%=item.getData()%>" alt="<%=item.getKey()%>"/>
+      <% } else if (item.isUrl()) { %>
+      <a href="<%=item.getData()%>"><%=item.getData()%></a>
+      <% } else if (item.isListLink()) { %>
+      <a href="viewListItems.html?listName=<%=item.getData()%>"><%=item.getData()%></a>
+      <% } else { %>
+      <%=item.getData()%>
       <% } %>
-      <% if (itemData.containsKey("url")) { %>
-      <a href="<%= itemData.get("url") %>"><%= itemData.get("url") %></a>
-      <% } %>
-      <% if (itemData.containsKey("image")) { %>
-      <img src="data:image/png;base64,<%= itemData.get("image") %>" />
-      <% } %>
-    </li>
-    <% }
-    %>
-  </ul>
-  <% } else { %>
-  <p>No results found.</p>
+    </td>
+  </tr>
   <% } %>
-</div>
+</table>
+<jsp:include page="/backButton.jsp">
+  <jsp:param name="previousPage" value="search.html" />
+</jsp:include>
 <jsp:include page="/footer.jsp"/>
 </body>
 </html>

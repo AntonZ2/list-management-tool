@@ -18,18 +18,15 @@ import java.util.List;
 public class ViewListItemsServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        // Get the list name from the request parameter
+
         String listName = request.getParameter("listName");
 
-        // Get the data from the Model
         Model model = ModelFactory.getModel();
         ListData listData = model.getList(listName);
 
-        // Add the list name and list data to the request object
         request.setAttribute("listName", listName);
         request.setAttribute("listData", listData.getItems());
 
-        // Invoke the JSP
         ServletContext context = getServletContext();
         RequestDispatcher dispatch = context.getRequestDispatcher("/viewListItems.jsp");
         dispatch.forward(request, response);

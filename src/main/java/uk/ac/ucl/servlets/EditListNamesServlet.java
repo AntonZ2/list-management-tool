@@ -18,7 +18,7 @@ public class EditListNamesServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         Model model = ModelFactory.getModel();
         List<String> listNames = model.getListNames();
-        request.setAttribute("listNames", listNames); // Set the listNames attribute here
+        request.setAttribute("listNames", listNames);
 
         ServletContext context = getServletContext();
         RequestDispatcher dispatch = context.getRequestDispatcher("/editListNames.jsp");

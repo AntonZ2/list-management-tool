@@ -15,7 +15,6 @@ uk/ac/ucl/lists/ListLinkItem.class
 uk/ac/ucl/servlets/UpdateItemServlet.class
 uk/ac/ucl/servlets/EditListItemsServlet.class
 uk/ac/ucl/lists/ListData.class
-uk/ac/ucl/servlets/ViewPatientListServlet.class
 uk/ac/ucl/model/Model$1.class
 uk/ac/ucl/servlets/AddListServlet.class
 uk/ac/ucl/lists/Item.class

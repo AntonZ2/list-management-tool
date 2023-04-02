@@ -9,10 +9,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 import java.nio.file.Files;
+import java.util.AbstractMap;
 
 public class Model {
-  // The example code in this class should be replaced by your Model class code.
-  // The data should be stored in a suitable data structure.
   private LinkedHashMap<String, ListData> listsMap;
 
   public Model() {
@@ -43,15 +42,28 @@ public class Model {
     if (list != null) {
       removeList(oldName);
       addList(newName, list);
+      updateListReferences(oldName, newName);
       updateFile();
     }
   }
+
+  public void updateListReferences(String oldListName, String newListName) {
+    for (ListData listData : listsMap.values()) {
+      for (Item item : listData.getItems()) {
+        if (item.isListLink() && item.getData().equals(oldListName)) {
+          item.setData(newListName);
+        }
+      }
+    }
+  }
+
 
   public void addItem(String listName, String itemType, String itemKey, String itemData) {
     Item newItem = Item.createItem(itemType, itemKey, itemData);
     ListData list = getList(listName);
     if (list != null) {
       list.addItem(newItem);
+      updateFile();
     }
   }
 
@@ -59,6 +71,7 @@ public class Model {
     ListData list = getList(listName);
     if (list != null) {
       list.removeItem(itemInd);
+      updateFile();
     }
   }
 
@@ -68,6 +81,7 @@ public class Model {
       Item item = list.getItem(itemInd);
       if (item != null) {
         item.setData(newData);
+        updateFile();
       }
     }
   }
@@ -82,19 +96,16 @@ public class Model {
     }
   }
 
-  public List<Map<String, String>> searchFor(String keyword) {
-    List<Map<String, String>> results = new ArrayList<>();
+
+  public List<AbstractMap.SimpleEntry<String, Item>> searchFor(String keyword) {
+    List<AbstractMap.SimpleEntry<String, Item>> results = new ArrayList<>();
 
     for (Map.Entry<String, ListData> entry : listsMap.entrySet()) {
       String listName = entry.getKey();
-      ListData listData = entry.getValue();
-
-      for (Item item : listData.getItems()) {
+      ListData list = entry.getValue();
+      for (Item item : list.getItems()) {
         if (item.search(keyword)) {
-          Map<String, String> result = new HashMap<>();
-          result.put("listName", listName);
-          result.put("itemKey", item.getKey());
-          result.put("itemData", item.getData());
+          AbstractMap.SimpleEntry<String, Item> result = new AbstractMap.SimpleEntry<>(listName, item);
           results.add(result);
         }
       }

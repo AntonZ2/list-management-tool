@@ -4,29 +4,13 @@
 
 <html>
 <head>
+  <jsp:include page="/meta.jsp"/>
   <title>Edit List Items</title>
-  <style>
-    table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-    th, td {
-      padding: 8px;
-      text-align: left;
-      border-bottom: 1px solid #ddd;
-    }
-    th {
-      background-color: #f2f2f2;
-    }
-    img {
-      max-width: 200px;
-      max-height: 200px;
-    }
-  </style>
 </head>
 <body>
+<jsp:include page="/header.jsp"/>
+<div class="main">
 <h2>Edit List Items</h2>
-
 <h3>Add Item</h3>
 <form action="AddItemServlet" method="post">
   <input type="hidden" name="listName" value="<%= request.getParameter("listName") %>" />
@@ -41,8 +25,7 @@
   <input type="submit" value="Add Item" />
 </form>
 
-<h3>Update/Delete Items</h3>
-<table>
+<table class="data-table">
   <tr>
     <th>Key</th>
     <th>Data</th>
@@ -80,5 +63,10 @@
   </tr>
   <% itemIndex++; } %>
 </table>
+  <jsp:include page="/backButton.jsp">
+    <jsp:param name="previousPage" value="/" />
+  </jsp:include>
+</div>
+<jsp:include page="/footer.jsp"/>
 </body>
 </html>
